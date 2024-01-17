@@ -15,12 +15,15 @@ import pandas as pd
 dataset = pd.read_csv(r"C:\Machine-Learning-A-Z-course\Machine Learning A-Z (Codes and Datasets)\Part 1 - Data Preprocessing\Section 2 -------------------- Part 1 - Data Preprocessing --------------------\Python\Data.csv")
 
 x = dataset.iloc[:, :-1].values # independet variables
-y = dataset.iloc[:, -1].values # dependet variable 
+
+y = dataset.iloc[:, -1].value # dependet variable 
+y = dataset['Purchased'].values # intead of the idex we can also use the name of the column to extract the dependet variable
+
+# Print
 print(x)
 print(y)
 
 # we create those entities because the maching leraning model to obtain those entities, independet variables and dependet variables
-
 # Taking care of missing data
 from sklearn.impute import SimpleImputer
 
@@ -29,8 +32,8 @@ imputer.fit(x[:, 1:3]) # selest the columns that we want to
 x[:, 1:3] = imputer.transform(x[:, 1:3])
 
 
-
-# encoding the idependent Variable
+## Encoding
+# Encoding the idependent Variable
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 
@@ -63,6 +66,45 @@ print(Y_test)
 
 # test 20%
 # training 80$
+
+## Feature Scaling
+# Standardisation: it is used almost in all the cases
+# Normalisation: it is used for data that has a nomal distribution
+
+# Import library
+from sklearn.preprocessing import StandardScaler
+
+# Creat an object of the class
+sc = StandardScaler()
+# Apply the the scaling just to the numerical features, so we don't scaling for the columns that represent the country
+X_train[:, 3:] = sc.fit_transform(X_train[:, 3:]) # is taking the column from the index 3 onwards as well as all the rows
+X_test[:, 3:] = sc.fit_transform(X_test[:, 3:])
+
+print(X_train)
+print(X_test)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
