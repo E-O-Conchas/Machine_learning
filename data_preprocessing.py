@@ -36,7 +36,39 @@ from sklearn.preprocessing import OneHotEncoder
 
 ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0])],
                        remainder='passthrough') # if there is not passth does not go throu rows
-x = np.array(ct.fit_transform(x))
-
+X = np.array(ct.fit_transform(x)) # create the array with the transormed. The column country has been trasformed to 01 for example France is coding 1 0 0 each nunber is a column
 print(x)
+
+
+# Encoding the dependet variable
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+Y = le.fit_transform(y)
+print(Y)
+
+## Splitting the dataser into tha Training set and Test set
+
+# We have Y and X (mayuscula) that is transformed for the model and be able
+# to split the data as follow
+
+from sklearn.model_selection import train_test_split
+
+# we define the training data ans test data with the function train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size= 0.2, random_state = 1)
+
+print(X_train)
+print(X_test)
+print(Y_train)
+print(Y_test)
+
+# test 20%
+# training 80$
+
+
+
+
+
+
+
+
 
