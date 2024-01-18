@@ -15,7 +15,6 @@ import pandas as pd
 dataset = pd.read_csv(r"C:\Machine-Learning-A-Z-course\Machine Learning A-Z (Codes and Datasets)\Part 1 - Data Preprocessing\Section 2 -------------------- Part 1 - Data Preprocessing --------------------\Python\Data.csv")
 
 x = dataset.iloc[:, :-1].values # independet variables
-
 y = dataset.iloc[:, -1].value # dependet variable 
 y = dataset['Purchased'].values # intead of the idex we can also use the name of the column to extract the dependet variable
 
