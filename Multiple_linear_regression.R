@@ -32,7 +32,6 @@ split <- sample.split(data_startup$Profit,
 training_set <- subset(data_startup, split == TRUE)
 test_set <- subset(data_startup, split == FALSE)
 
-names(training_set)
 # Fitting multiple linear regression to the training set
 # . means all independent variables
 regressor <- lm(formula = Profit ~ .,
@@ -43,5 +42,38 @@ summary(regressor)
 
 # Predicting the Test set result
 y_pred <- predict(regressor, newdata = test_set)
+
+# Backward elimination to predict better the model
+# Eliminate variable if the p values is higher than the Significant value 0.05-5%
+names(data_startup)
+regressor <- lm(formula = Profit ~ R.D.Spend,
+                data = data_startup)
+summary(regressor)
+
+# eliminated <- + State
+# eliminated <- + Administration
+# eliminated <-  + Marketing.Spend
+
+# Function to perform the backward Elimination
+backwardElimination <- function(x, sl){
+  numVars <-  length(x)
+  for (i in c(1:numVars)){
+    regressor <-  lm(formula = Profit ~ ., data = x)
+    maxVar  <- max(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"])
+    if (maxVar > sl){
+      j <-  which(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"] == maxVar)
+      x <- x[, -j]
+    }
+    numVars = numVars -1
+  }
+  return(summary((regressor)))
+}
+
+
+# sl <- 0.05
+# dataset <- dataset[, c(1,2,3,4,5)]
+
+backwardElimination(training_set, sl)
+
 
 
