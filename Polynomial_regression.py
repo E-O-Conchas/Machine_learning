@@ -45,13 +45,17 @@ plt.show()
 
 # Visualising the polynomial regression results
 plt.scatter(x, y, color = 'red')
-plt.plot(x, lin_reg_2.predict(x_poly), color = 'blue')
-plt.title('Ttuth or Bluff (Linear regression)')
+plt.plot(x, lin_reg_2.predict(poly_reg.fit_transform(x)), color = 'blue')
+plt.title('Ttuth or Bluff (Polynomial regression)')
 plt.xlabel('Position level')
 plt.ylabel('Salary')
 plt.show()
 
+# Predicta new result with Linear regression
+lin_reg.predict([[6.5]]) # it is wrong
 
+# Predicting a new result with polynomial Regression
+lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))
 
 
 
